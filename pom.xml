@@ -156,6 +156,9 @@
                             <include>**/*Test.java</include>
                             <include>**/*TestSuite.java</include>
                         </includes>
+                        <!--<excludes>
+                            <exclude>**/OAuth2TokenSecurityRealmTest.java</exclude>
+                        </excludes>-->
                         <childDelegation>true</childDelegation>
                         <reuseForks>false</reuseForks>
                         <argLine>-javaagent:${org.jmockit:jmockit:jar} ${modular.jdk.args} ${modular.jdk.props}</argLine>
@@ -541,6 +544,50 @@
                 <!-- Surefire plugin's excluded test categories -->
                 <excludedGroups>org.wildfly.security.ExcludedOnIbmJdk</excludedGroups>
             </properties>
+        </profile>
+
+        <profile>
+            <id>stable-tests</id>
+            <activation>
+                <property>
+                    <name>stable-tests</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!--<plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration />
+                        <executions>
+                            <execution>
+                                <id>stable-test</id>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>**/GssapiTestSuite.java</exclude>
+                                        <exclude>**/SelfSignedX509CertificateAndSigningKeyTest.java</exclude>
+                                        <exclude>**/KeyStoreCredentialStoreTest.java</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                         </executions>
+                    </plugin>-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes combine.children="append">
+                                <exclude>**/GssapiTestSuite.java</exclude>
+                                <exclude>**/SelfSignedX509CertificateAndSigningKeyTest.java</exclude>
+                                <exclude>**/KeyStoreCredentialStoreTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
